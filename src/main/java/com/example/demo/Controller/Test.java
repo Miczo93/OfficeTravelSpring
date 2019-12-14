@@ -17,49 +17,49 @@ public class Test {
     @Autowired
     private TravelOffice newOffice;
 
-    @GetMapping("/AddSimpleData")
-    public void AddSimpleData() {
-        newOffice.AddCustomer("Duprim", new AbroadTrip(new MyDate(19, 11, 2019), new MyDate(19, 12, 2019), "Brooklyn"), new Address("Gangsta", "89-969", "Metropolice"));
-        newOffice.AddCustomer("Larry", new DomesticTrip(new MyDate(19, 7, 2019), new MyDate(15, 12, 2019), "Norwegia"), new Address("Norweska", "66-661", "Metropolice"));
-        newOffice.AddCustomer("Crowbar Gary", new Trip(new MyDate(9, 12, 2019), new MyDate(29, 12, 2019), "Metropolice"), new Address("Gangsta", "99-999", "Siłownice"));
-        newOffice.getCustomers().get(newOffice.getCustomerCount() - 2).getTrip().setPrice(5000);
-        newOffice.getCustomers().get(newOffice.getCustomerCount() - 1).getTrip().setPrice(5000);
-        newOffice.getCustomers().get(newOffice.getCustomerCount()).getTrip().setPrice(5000);
+    @GetMapping("/addSimpleData")
+    public void addSimpleData() {
+        newOffice.addCustomer("Duprim", new AbroadTrip(new MyDate(19, 11, 2019), new MyDate(19, 12, 2019), "Brooklyn"), new Address("Gangsta", "89-969", "Metropolice"));
+        newOffice.addCustomer("Larry", new DomesticTrip(new MyDate(19, 7, 2019), new MyDate(15, 12, 2019), "Norwegia"), new Address("Norweska", "66-661", "Metropolice"));
+        newOffice.addCustomer("Crowbar Gary", new Trip(new MyDate(9, 12, 2019), new MyDate(29, 12, 2019), "Metropolice"), new Address("Gangsta", "99-999", "Siłownice"));
+        newOffice.getCustomersList().get(TravelOffice.getCustomerCount() - 2).getTrip().setPrice(5000);
+        newOffice.getCustomersList().get(TravelOffice.getCustomerCount() - 1).getTrip().setPrice(5000);
+        newOffice.getCustomersList().get(TravelOffice.getCustomerCount()).getTrip().setPrice(5000);
     }
 
-    @GetMapping("/DisplayData")
-    public String DisplayData() {
+    @GetMapping("/displayData")
+    public String displayData() {
         StringBuilder sb = new StringBuilder();
-        for (Customer c : newOffice.getCustomers().values()) {
+        for (Customer c : newOffice.getCustomersList().values()) {
             if (c.getTrip() instanceof AbroadTrip) {
                 ((AbroadTrip) c.getTrip()).setInsurance(200);
             } else if (c.getTrip() instanceof DomesticTrip) {
                 ((DomesticTrip) c.getTrip()).setOwnArrivalDiscount(50);
             }
-            sb.append(c.toString() + "\n");
+            sb.append(c.toString()).append("\n");
         }
         return sb.toString();
     }
 
-    @PostMapping("/AddCustomCustomer")
-    public void AddCustomCustomer(@RequestBody Customer customer) {
-        newOffice.AddCustomer(customer);
+    @PostMapping("/addCustomCustomer")
+    public void addCustomCustomer(@RequestBody Customer customer) {
+        newOffice.addCustomer(customer);
     }
 
-    @PostMapping("/AddCustomCustomerWithReturn")
-    public Customer AddCustomCustomerWithReturn(@RequestBody Customer customer) {
-        newOffice.AddCustomer(customer);
-        return newOffice.getCustomers().get(newOffice.getCustomerCount());
+    @PostMapping("/addCustomCustomerWithReturn")
+    public Customer addCustomCustomerWithReturn(@RequestBody Customer customer) {
+        newOffice.addCustomer(customer);
+        return newOffice.getCustomersList().get(TravelOffice.getCustomerCount());
     }
 
-    @GetMapping("/DisplayDataJSON")
-    public Map<Long, Customer> DisplayDataJSON() {
-        return newOffice.getCustomers();
+    @GetMapping("/displayDataJSON")
+    public Map<Long, Customer> displayDataJSON() {
+        return newOffice.getCustomersList();
     }
 
-    @GetMapping("/ThrowExceptionForDebug")
-    public void ThrowExceptionForDebug(){
-        new ExceptionTesting().FunctionForException();
+    @GetMapping("/throwExceptionForDebug")
+    public void throwExceptionForDebug(){
+        new ExceptionTesting().functionForException();
     }
 
 }

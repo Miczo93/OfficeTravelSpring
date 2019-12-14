@@ -15,9 +15,12 @@ public class Customer {
         this.name = name;
     }
 
+    public String getName() {
+        return name;
+    }
 
-    public Trip getTrip() {
-        return trip;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Address getAddress() {
@@ -28,7 +31,11 @@ public class Customer {
         this.address = address;
     }
 
-    public void assignTrip(Trip trip) {
+    public Trip getTrip() {
+        return trip;
+    }
+
+    public void setTrip(Trip trip) {
         this.trip = trip;
     }
 

@@ -32,7 +32,7 @@ public class TestTest {
     @Autowired
     private MockMvc mockMvc;
 
-    private Customer getTestCustomer() {
+    private Customer gettestcustomer() {
         Customer customer = new Customer();
         customer.setName("Igorrr");
         customer.setAddress(new Address("Gangsta", "89-969", "Metropolice"));
@@ -42,11 +42,11 @@ public class TestTest {
         return customer;
     }
 
-    private Customer FunctionForTestIfCustomerIsAdded() throws Exception {
-        Customer customer = getTestCustomer();
+    private Customer functionForTestIfCustomerIsAdded() throws Exception {
+        Customer customer = gettestcustomer();
         String postValue = OBJECT_MAPPER.writeValueAsString(customer);
         MvcResult storyResult = mockMvc.perform(MockMvcRequestBuilders
-                .post("/AddCustomCustomerWithReturn")
+                .post("/addCustomCustomerWithReturn")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(postValue))
                 .andExpect(status().isOk())
@@ -56,14 +56,14 @@ public class TestTest {
     }
 
     @Test
-    public void SimpleTest() throws Exception {
-        mockMvc.perform(get("/Add"))
+    public void simpleTest() throws Exception {
+        mockMvc.perform(get("/addSimpleData"))
                 .andExpect(status().isOk());
     }
 
     @Test
-    public void TestIfCustomerIsAdded() throws Exception {
-        Customer customer = FunctionForTestIfCustomerIsAdded();
+    public void testIfCustomerIsAdded() throws Exception {
+        Customer customer = functionForTestIfCustomerIsAdded();
         assertNotNull(customer.getTrip().getStart());
         assertEquals(customer.getName(), "Igorrr");
     }
